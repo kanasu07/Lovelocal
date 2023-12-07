@@ -1,0 +1,7 @@
+def length_of_last_word(s):
+    words = s.split()
+    return len(words[-1]) if words else 0
+
+input_string = "The world is beautiful place"
+result = length_of_last_word(input_string)
+print(result)
