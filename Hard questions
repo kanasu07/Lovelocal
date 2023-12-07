@@ -1,0 +1,27 @@
+def shortestPalindrome(s):
+    if not s:
+        return ""
+
+    # Construct the modified string by concatenating s and a special character
+    modified_string = s + "#" + s[::-1]
+
+    # Build the KMP table
+    kmp_table = [0] * len(modified_string)
+    j = 0
+    for i in range(1, len(modified_string)):
+        while j > 0 and modified_string[i] != modified_string[j]:
+            j = kmp_table[j - 1]
+        if modified_string[i] == modified_string[j]:
+            j += 1
+        kmp_table[i] = j
+
+    # Find the length of the longest palindrome substring starting from the beginning
+    longest_palindrome_length = kmp_table[-1]
+
+    # Return the shortest palindrome by adding the remaining characters in reverse order
+    return s[longest_palindrome_length:][::-1] + s
+
+# Example usage:
+s = "aacecaaa"
+output_result = shortestPalindrome(s)
+print("Output Result:", output_result)
